@@ -11,7 +11,7 @@ interface TeamMemberRaw {
 }
 
 type InvitationRaw =
-  Database["public"]["Tables"]["organization_invitations"]["Row"] & {
+  Database["public"]["Tables"]["invitations"]["Row"] & {
     invited_by: {
       name: string | null;
     } | null;

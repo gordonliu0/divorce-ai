@@ -26,25 +26,25 @@ async function getInitialOnboardingState(): Promise<Partial<OnboardingState>> {
   // Get user data
   const { data: userData } = await supabase
     .from("users")
-    .select("name, role, editing_tool, publishing_cadence, footage_ownership")
+    .select("name")
     .eq("id", user.id)
     .single();
 
   // Get onboarding progress
   const { data: progressData } = await supabase
-    .from("user_onboarding_progress")
-    .select("current_step, completed_at")
-    .eq("user_id", user.id)
+    .from("users")
+    .select("onboarding_step, onboarding_completed_at")
+    .eq("id", user.id)
     .single();
 
   // If onboarding already completed, redirect to dashboard
-  if (progressData?.completed_at) {
+  if (progressData?.onboarding_completed_at) {
     redirect("/dashboard");
   }
 
   // Check if user has already created an organization
   const { data: orgMembership } = await supabase
-    .from("organization_members")
+    .from("members")
     .select("organization_id, organizations(id, name, team_size)")
     .eq("user_id", user.id)
     .eq("role", "owner")
@@ -53,14 +53,10 @@ async function getInitialOnboardingState(): Promise<Partial<OnboardingState>> {
   const hasCreatedOrg = !!orgMembership;
 
   return {
-    currentStep: (progressData?.current_step as OnboardingStep) || "welcome",
+    currentStep: (progressData?.onboarding_step as OnboardingStep) || "welcome",
     hasCreatedOrg,
     accountData: {
       fullName: userData?.name || "",
-      role: userData?.role || undefined,
-      editingTool: userData?.editing_tool || undefined,
-      publishingCadence: userData?.publishing_cadence || undefined,
-      footageOwnership: userData?.footage_ownership || undefined,
     },
     organizationData:
       hasCreatedOrg && orgMembership?.organizations

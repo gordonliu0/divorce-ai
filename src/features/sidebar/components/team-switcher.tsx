@@ -59,7 +59,7 @@ export function TeamSwitcher({
   const fetchOrgs = useCallback(async () => {
     const { data } = await supabase
       .from("organizations")
-      .select("id, name, organization_members!inner(user_id)")
+      .select("id, name, members!inner(user_id)")
       .order("name");
     if (data) {
       setOrgs(data.map((o) => ({ id: o.id, name: o.name })));
@@ -68,7 +68,7 @@ export function TeamSwitcher({
 
   const fetchMemberCount = useCallback(async () => {
     const { count } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("*", { count: "exact", head: true })
       .eq("organization_id", orgId);
     setMemberCount(count ?? null);

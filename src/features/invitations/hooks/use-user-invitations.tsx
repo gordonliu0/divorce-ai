@@ -47,7 +47,7 @@ export function useUserInvitations(): UseUserInvitationsReturn {
       setError(null);
 
       const { data, error: fetchError } = await supabase
-        .from("organization_invitations")
+        .from("invitations")
         .select("*")
         .eq("email", email)
         .order("sent_at", { ascending: false });
@@ -85,7 +85,7 @@ export function useUserInvitations(): UseUserInvitationsReturn {
         {
           event: "*",
           schema: "public",
-          table: "organization_invitations",
+          table: "invitations",
           filter: `email=eq.${user.email.toLowerCase()}`,
         },
         (payload) => {

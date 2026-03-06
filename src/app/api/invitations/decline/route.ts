@@ -20,7 +20,7 @@ export async function POST(request: Request) {
 
   // Get invitation
   const { data: invitation, error: inviteError } = await supabase
-    .from("organization_invitations")
+    .from("invitations")
     .select("*")
     .eq("id", invitationId)
     .single();
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
 
   // Update invitation status to declined
   const { error: updateError } = await supabase
-    .from("organization_invitations")
+    .from("invitations")
     .update({
       status: "declined",
       accepted_at: new Date().toISOString(), // Track when declined

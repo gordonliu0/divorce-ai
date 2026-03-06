@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 
     // Step 1: Validate invitation
     const { data: invitation, error: inviteError } = await supabase
-      .from("organization_invitations")
+      .from("invitations")
       .select(
         `
         id,
@@ -163,7 +163,7 @@ export async function POST(request: Request) {
 
     // Step 4: Create organization membership
     const { error: memberError } = await supabase
-      .from("organization_members")
+      .from("members")
       .insert({
         user_id: userData.user.id,
         organization_id: invitation.organization_id,
@@ -184,7 +184,7 @@ export async function POST(request: Request) {
 
     // Step 5: Update invitation status
     const { error: updateError } = await supabase
-      .from("organization_invitations")
+      .from("invitations")
       .update({
         status: "accepted",
         accepted_at: new Date().toISOString(),

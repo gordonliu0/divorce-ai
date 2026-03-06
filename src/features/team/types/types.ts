@@ -2,7 +2,7 @@ import type { Database } from "@/database.types";
 
 // Types
 export interface TeamMemberRaw {
-  membership: Database["public"]["Tables"]["organization_members"]["Row"];
+  membership: Database["public"]["Tables"]["members"]["Row"];
   user: Database["public"]["Tables"]["users"]["Row"];
 }
 
@@ -17,7 +17,7 @@ export interface TeamMember {
 }
 
 export type PendingInvitationRaw =
-  Database["public"]["Tables"]["organization_invitations"]["Row"];
+  Database["public"]["Tables"]["invitations"]["Row"];
 
 export interface PendingInvitation {
   custom_message?: string;

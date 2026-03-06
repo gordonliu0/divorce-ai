@@ -23,12 +23,12 @@ export async function POST() {
 
     // Mark onboarding as complete
     const { data, error } = await supabaseServiceRole
-      .from("user_onboarding_progress")
+      .from("users")
       .update({
-        completed_at: new Date().toISOString(),
+        onboarding_completed_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       })
-      .eq("user_id", user.id)
+      .eq("id", user.id)
       .select()
       .single();
 

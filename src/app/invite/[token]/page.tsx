@@ -21,7 +21,7 @@ export default async function InvitePage({
 
   // Check 1: Validate the invitation token (bypassing auth w/ service client, no auth needed)
   const { data: invitation, error } = await supabaseServiceClient
-    .from("organization_invitations")
+    .from("invitations")
     .select(
       `
       id,

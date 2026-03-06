@@ -42,7 +42,7 @@ export async function POST(request: Request) {
 
     // Add creator as owner using service role to bypass RLS
     const { error: memberError } = await serviceSupabase
-      .from("organization_members")
+      .from("members")
       .insert([
         {
           organization_id: org.id,

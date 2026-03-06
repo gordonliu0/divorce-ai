@@ -29,14 +29,14 @@ export function PeopleSection({ orgId }: PeopleSectionProps) {
 
       const [membersResult, invitationsResult] = await Promise.all([
         supabase
-          .from("organization_members")
+          .from("members")
           .select(
             `id, user_id, organization_id, role, joined_at,
              user:users!user_id (*)`
           )
           .eq("organization_id", orgId),
         supabase
-          .from("organization_invitations")
+          .from("invitations")
           .select("*, invited_by:users!invited_by_user_id (name)")
           .eq("organization_id", orgId),
       ]);

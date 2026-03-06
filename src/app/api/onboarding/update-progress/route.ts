@@ -38,12 +38,12 @@ export async function POST(request: Request) {
 
     // Simple update - just current_step
     const { data, error } = await supabaseServiceRole
-      .from("user_onboarding_progress")
+      .from("users")
       .update({
-        current_step: step,
+        onboarding_step: step,
         updated_at: new Date().toISOString(),
       })
-      .eq("user_id", user.id)
+      .eq("id", user.id)
       .select()
       .single();
 

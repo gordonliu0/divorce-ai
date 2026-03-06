@@ -37,7 +37,7 @@ export async function POST(
 
     // Check user's role in organization
     const { data: membership, error: membershipError } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("role")
       .eq("organization_id", orgId)
       .eq("user_id", user.id)
@@ -79,7 +79,7 @@ export async function POST(
 
     // Check daily rate limit (200 per org per day)
     const { count, error: countError } = await supabase
-      .from("organization_invitations")
+      .from("invitations")
       .select("*", { count: "exact", head: true })
       .eq("organization_id", orgId)
       .gte("sent_at", new Date().toISOString().split("T")[0]);
@@ -97,12 +97,12 @@ export async function POST(
 
     // Get existing members and pending invitations for validation
     const { data: members } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("user:users!user_id(email)")
       .eq("organization_id", orgId);
 
     const { data: pendingInvitations } = await supabase
-      .from("organization_invitations")
+      .from("invitations")
       .select("email")
       .eq("organization_id", orgId)
       .eq("status", "pending");
@@ -116,7 +116,7 @@ export async function POST(
 
     // Process each email
     const errors: ValidationError[] = [];
-    const createdInvitations: (Database["public"]["Tables"]["organization_invitations"]["Row"] & {
+    const createdInvitations: (Database["public"]["Tables"]["invitations"]["Row"] & {
       invited_by: { name: string | null };
     })[] = [];
     let sentCount = 0;
@@ -151,7 +151,7 @@ export async function POST(
 
       // Create invitation
       const { data: invitation, error: insertError } = await supabase
-        .from("organization_invitations")
+        .from("invitations")
         .insert({
           organization_id: orgId,
           email: cleanEmail,

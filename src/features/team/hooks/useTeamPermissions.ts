@@ -44,7 +44,7 @@ export function useTeamPermissions(orgId: string): TeamPermissions {
 
         // Get user's role in this organization
         const { data: membership, error: membershipError } = await supabase
-          .from("organization_members")
+          .from("members")
           .select("role")
           .eq("organization_id", orgId)
           .eq("user_id", user.id)

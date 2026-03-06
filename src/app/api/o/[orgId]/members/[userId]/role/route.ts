@@ -35,7 +35,7 @@ export async function PATCH(
     // Check current user's role in organization
     const { data: currentUserMembership, error: currentUserError } =
       await supabase
-        .from("organization_members")
+        .from("members")
         .select("role")
         .eq("organization_id", orgId)
         .eq("user_id", user.id)
@@ -70,7 +70,7 @@ export async function PATCH(
 
     // Get target member's current role
     const { data: targetMember, error: targetError } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("id, role, user:users!user_id(*)")
       .eq("organization_id", orgId)
       .eq("user_id", userId)
@@ -86,7 +86,7 @@ export async function PATCH(
     // If demoting from owner to admin/member, check if they're the last owner
     if (targetMember.role === "owner") {
       const { count, error: countError } = await supabase
-        .from("organization_members")
+        .from("members")
         .select("*", { count: "exact", head: true })
         .eq("organization_id", orgId)
         .eq("role", "owner");
@@ -105,7 +105,7 @@ export async function PATCH(
 
     // Update the member's role
     const { data: updatedMember, error: updateError } = await supabase
-      .from("organization_members")
+      .from("members")
       .update({ role, updated_at: new Date().toISOString() })
       .eq("id", targetMember.id)
       .select(

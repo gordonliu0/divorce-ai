@@ -34,7 +34,7 @@ export async function POST(request: Request) {
     const supabaseServiceRole = await createServiceClient();
 
     const { data: existingMembership } = await supabaseServiceRole
-      .from("organization_members")
+      .from("members")
       .select("id")
       .eq("user_id", user.id)
       .eq("role", "owner")
@@ -65,7 +65,7 @@ export async function POST(request: Request) {
 
     // Add user as owner
     const { error: memberError } = await supabaseServiceRole
-      .from("organization_members")
+      .from("members")
       .insert({
         user_id: user.id,
         organization_id: organization.id,
@@ -77,18 +77,6 @@ export async function POST(request: Request) {
 
     if (memberError) {
       throw memberError;
-    }
-
-    // Create demo folder for the organization
-    const { error: demoError } = await supabaseServiceRole.rpc(
-      "create_demo_folder_for_organization",
-      {
-        org_id: organization.id,
-      }
-    );
-
-    if (demoError) {
-      throw demoError;
     }
 
     return NextResponse.json({ data: organization });

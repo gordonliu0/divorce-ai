@@ -20,7 +20,7 @@ async function validateInvitationContext(
 
   // Check if there's a pending invitation for this email with this token
   const { data } = await supabase
-    .from("organization_invitations")
+    .from("invitations")
     .select("id")
     .eq("email", email.toLowerCase())
     .eq("token", token)

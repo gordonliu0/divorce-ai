@@ -13,7 +13,7 @@ const page = async ({ params }: { params: Promise<{ orgId: string }> }) => {
   const { orgId } = await params;
 
   const { data: membersRaw } = await supabase
-    .from("organization_members")
+    .from("members")
     .select(
       `
       id,
@@ -29,7 +29,7 @@ const page = async ({ params }: { params: Promise<{ orgId: string }> }) => {
     .eq("organization_id", orgId);
 
   const { data: invitationsRaw } = await supabase
-    .from("organization_invitations")
+    .from("invitations")
     .select(
       `
       *,

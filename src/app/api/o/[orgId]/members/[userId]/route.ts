@@ -31,7 +31,7 @@ export async function DELETE(
     // Check current user's role in organization
     const { data: currentUserMembership, error: currentUserError } =
       await supabase
-        .from("organization_members")
+        .from("members")
         .select("role")
         .eq("organization_id", orgId)
         .eq("user_id", user.id)
@@ -54,7 +54,7 @@ export async function DELETE(
 
     // Get target member
     const { data: targetMember, error: targetError } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("id, role")
       .eq("organization_id", orgId)
       .eq("user_id", userId)
@@ -83,7 +83,7 @@ export async function DELETE(
     // If removing an owner, check if they're the last owner
     if (targetMember.role === "owner") {
       const { count, error: countError } = await supabase
-        .from("organization_members")
+        .from("members")
         .select("*", { count: "exact", head: true })
         .eq("organization_id", orgId)
         .eq("role", "owner");
@@ -102,7 +102,7 @@ export async function DELETE(
 
     // Delete the member (CASCADE will handle related records)
     const { error: deleteError } = await supabase
-      .from("organization_members")
+      .from("members")
       .delete()
       .eq("id", targetMember.id);
 

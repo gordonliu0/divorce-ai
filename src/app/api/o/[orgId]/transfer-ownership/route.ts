@@ -40,7 +40,7 @@ export async function POST(
     // Check current user is the owner
     const { data: currentUserMembership, error: currentUserError } =
       await supabase
-        .from("organization_members")
+        .from("members")
         .select("id, role")
         .eq("organization_id", orgId)
         .eq("user_id", user.id)
@@ -62,7 +62,7 @@ export async function POST(
 
     // Check new owner exists and is a member
     const { data: newOwnerMembership, error: newOwnerError } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("id, role, user:users!user_id(*)")
       .eq("organization_id", orgId)
       .eq("user_id", newOwnerId)
@@ -87,7 +87,7 @@ export async function POST(
 
     // Update new owner to owner
     const { error: promoteError } = await supabase
-      .from("organization_members")
+      .from("members")
       .update({ role: "owner", updated_at: new Date().toISOString() })
       .eq("id", newOwnerMembership.id);
 
@@ -97,14 +97,14 @@ export async function POST(
 
     // Update current owner to admin
     const { error: demoteError } = await supabase
-      .from("organization_members")
+      .from("members")
       .update({ role: "admin", updated_at: new Date().toISOString() })
       .eq("id", currentUserMembership.id);
 
     if (demoteError) {
       // Rollback: restore original owner
       await supabase
-        .from("organization_members")
+        .from("members")
         .update({ role: "admin", updated_at: new Date().toISOString() })
         .eq("id", newOwnerMembership.id);
       throw demoteError;
@@ -112,7 +112,7 @@ export async function POST(
 
     // Get fresh data for both members
     const { data: formerOwner } = await supabase
-      .from("organization_members")
+      .from("members")
       .select(
         `
         id,
@@ -131,7 +131,7 @@ export async function POST(
       .single();
 
     const { data: newOwner } = await supabase
-      .from("organization_members")
+      .from("members")
       .select(
         `
         id,
@@ -151,7 +151,7 @@ export async function POST(
 
     // Transform to frontend format
     const transformMember = (
-      member: Database["public"]["Tables"]["organization_members"]["Row"] & {
+      member: Database["public"]["Tables"]["members"]["Row"] & {
         user: Database["public"]["Tables"]["users"]["Row"];
       }
     ) => ({

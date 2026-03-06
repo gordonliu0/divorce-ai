@@ -23,7 +23,7 @@ export async function POST(
 
     // Check user's role in organization
     const { data: membership, error: membershipError } = await supabase
-      .from("organization_members")
+      .from("members")
       .select("role")
       .eq("organization_id", orgId)
       .eq("user_id", user.id)
@@ -45,7 +45,7 @@ export async function POST(
 
     // Get invitation
     const { data: invitation, error: invitationError } = await supabase
-      .from("organization_invitations")
+      .from("invitations")
       .select("*")
       .eq("id", invitationId)
       .eq("organization_id", orgId)
@@ -76,7 +76,7 @@ export async function POST(
 
     // Update invitation
     const { error: updateError } = await supabase
-      .from("organization_invitations")
+      .from("invitations")
       .update({
         resend_count: (invitation.resend_count || 0) + 1,
         last_resent_at: new Date().toISOString(),

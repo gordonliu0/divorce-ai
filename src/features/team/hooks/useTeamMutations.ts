@@ -210,7 +210,7 @@ export function useTeamMutations(orgId: string) {
 
     try {
       const { error } = await supabase
-        .from("organization_invitations")
+        .from("invitations")
         .update({ status: "cancelled" })
         .eq("id", invitationId);
 
