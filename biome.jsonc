@@ -15,6 +15,13 @@
   },
   "overrides": [
     {
+      // Supabase CLI auto-generated types: do not lint or format
+      "includes": ["src/database.types.ts"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false },
+      "assist": { "enabled": false }
+    },
+    {
       // shadcn UI primitives: vendored codegen, do not lint or format
       "includes": ["src/shared/components/ui/**"],
       "formatter": { "enabled": false },

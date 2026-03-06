@@ -6,9 +6,171 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
+      cases: {
+        Row: {
+          case_number: string | null;
+          client_name: string;
+          created_at: string;
+          created_by: string;
+          date_of_filing: string | null;
+          date_of_marriage: string | null;
+          date_of_separation: string | null;
+          id: string;
+          jurisdiction: string | null;
+          name: string;
+          notes: string | null;
+          opposing_party_name: string | null;
+          organization_id: string;
+          status: string;
+          updated_at: string;
+        };
+        Insert: {
+          case_number?: string | null;
+          client_name: string;
+          created_at?: string;
+          created_by: string;
+          date_of_filing?: string | null;
+          date_of_marriage?: string | null;
+          date_of_separation?: string | null;
+          id?: string;
+          jurisdiction?: string | null;
+          name: string;
+          notes?: string | null;
+          opposing_party_name?: string | null;
+          organization_id: string;
+          status?: string;
+          updated_at?: string;
+        };
+        Update: {
+          case_number?: string | null;
+          client_name?: string;
+          created_at?: string;
+          created_by?: string;
+          date_of_filing?: string | null;
+          date_of_marriage?: string | null;
+          date_of_separation?: string | null;
+          id?: string;
+          jurisdiction?: string | null;
+          name?: string;
+          notes?: string | null;
+          opposing_party_name?: string | null;
+          organization_id?: string;
+          status?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "cases_created_by_fkey";
+            columns: ["created_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "cases_organization_id_fkey";
+            columns: ["organization_id"];
+            isOneToOne: false;
+            referencedRelation: "organizations";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      documents: {
+        Row: {
+          account_last_four: string | null;
+          case_id: string;
+          created_at: string;
+          document_type: string | null;
+          document_type_confidence: number | null;
+          document_type_override: string | null;
+          extracted_data: Json | null;
+          extraction_confidence: number | null;
+          extraction_model_id: string | null;
+          extraction_status: string | null;
+          file_name: string;
+          file_path: string;
+          file_size: number;
+          id: string;
+          institution_name: string | null;
+          mime_type: string;
+          page_count: number | null;
+          period_end: string | null;
+          period_start: string | null;
+          raw_text: string | null;
+          status: string;
+          updated_at: string;
+          uploaded_by: string;
+        };
+        Insert: {
+          account_last_four?: string | null;
+          case_id: string;
+          created_at?: string;
+          document_type?: string | null;
+          document_type_confidence?: number | null;
+          document_type_override?: string | null;
+          extracted_data?: Json | null;
+          extraction_confidence?: number | null;
+          extraction_model_id?: string | null;
+          extraction_status?: string | null;
+          file_name: string;
+          file_path: string;
+          file_size: number;
+          id?: string;
+          institution_name?: string | null;
+          mime_type: string;
+          page_count?: number | null;
+          period_end?: string | null;
+          period_start?: string | null;
+          raw_text?: string | null;
+          status?: string;
+          updated_at?: string;
+          uploaded_by: string;
+        };
+        Update: {
+          account_last_four?: string | null;
+          case_id?: string;
+          created_at?: string;
+          document_type?: string | null;
+          document_type_confidence?: number | null;
+          document_type_override?: string | null;
+          extracted_data?: Json | null;
+          extraction_confidence?: number | null;
+          extraction_model_id?: string | null;
+          extraction_status?: string | null;
+          file_name?: string;
+          file_path?: string;
+          file_size?: number;
+          id?: string;
+          institution_name?: string | null;
+          mime_type?: string;
+          page_count?: number | null;
+          period_end?: string | null;
+          period_start?: string | null;
+          raw_text?: string | null;
+          status?: string;
+          updated_at?: string;
+          uploaded_by?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "documents_case_id_fkey";
+            columns: ["case_id"];
+            isOneToOne: false;
+            referencedRelation: "cases";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "documents_uploaded_by_fkey";
+            columns: ["uploaded_by"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
       invitations: {
         Row: {
           accepted_at: string | null;
@@ -90,6 +252,72 @@ export interface Database {
             columns: ["organization_id"];
             isOneToOne: false;
             referencedRelation: "organizations";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      line_items: {
+        Row: {
+          amount: number;
+          case_id: string;
+          category: string | null;
+          counterparty: string | null;
+          counterparty_account: string | null;
+          created_at: string;
+          date: string;
+          description: string;
+          document_id: string;
+          flag_eligible: boolean;
+          id: string;
+          running_balance: number | null;
+          source_page: number | null;
+          type: string;
+        };
+        Insert: {
+          amount: number;
+          case_id: string;
+          category?: string | null;
+          counterparty?: string | null;
+          counterparty_account?: string | null;
+          created_at?: string;
+          date: string;
+          description: string;
+          document_id: string;
+          flag_eligible?: boolean;
+          id?: string;
+          running_balance?: number | null;
+          source_page?: number | null;
+          type: string;
+        };
+        Update: {
+          amount?: number;
+          case_id?: string;
+          category?: string | null;
+          counterparty?: string | null;
+          counterparty_account?: string | null;
+          created_at?: string;
+          date?: string;
+          description?: string;
+          document_id?: string;
+          flag_eligible?: boolean;
+          id?: string;
+          running_balance?: number | null;
+          source_page?: number | null;
+          type?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "line_items_case_id_fkey";
+            columns: ["case_id"];
+            isOneToOne: false;
+            referencedRelation: "cases";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "line_items_document_id_fkey";
+            columns: ["document_id"];
+            isOneToOne: false;
+            referencedRelation: "documents";
             referencedColumns: ["id"];
           },
         ];
@@ -215,7 +443,7 @@ export interface Database {
       [_ in never]: never;
     };
   };
-}
+};
 
 type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">;
 

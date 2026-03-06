@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleHelp, Home, Send } from "lucide-react";
+import { Briefcase, CircleHelp, Home, Send } from "lucide-react";
 import type * as React from "react";
 import { NavMain } from "@/features/sidebar/components/nav-main";
 import { NavSecondary } from "@/features/sidebar/components/nav-secondary";
@@ -35,6 +35,11 @@ export function AppSidebar({
       url: orgBase,
       icon: Home,
       exact: true,
+    },
+    {
+      title: "Cases",
+      url: `${orgBase}/cases`,
+      icon: Briefcase,
     },
   ];
 
