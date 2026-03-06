@@ -1,0 +1,97 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ],
+  "linter": {
+    "rules": {
+      "style": {
+        // Suppressed until legacy PascalCase components are cleaned up
+        "useFilenamingConvention": "off"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // shadcn UI components: idiomatic patterns from shadcn codegen
+      "includes": ["src/shared/components/ui/**"],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useFocusableInteractive": "off",
+            "useSemanticElements": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "off"
+          },
+          "performance": {
+            "noNamespaceImport": "off"
+          },
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          },
+          "style": {
+            "noNestedTernary": "off"
+          },
+          "suspicious": {
+            "noArrayIndexKey": "off",
+            "noDocumentCookie": "off"
+          }
+        }
+      }
+    },
+    {
+      // shadcn template/demo sidebar components
+      "includes": [
+        "src/shared/components/sidebar/**",
+        "src/shared/components/settings/**",
+        "src/features/sidebar/components/nav-workspaces.tsx",
+        "src/features/sidebar/components/nav-actions.tsx"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "useValidAnchor": "off"
+          },
+          "suspicious": {
+            "noArrayIndexKey": "off"
+          }
+        }
+      }
+    },
+    {
+      // Meta Pixel: third-party tracking snippet requires dangerouslySetInnerHTML and plain img
+      "includes": ["src/shared/components/MetaPixel.js"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          },
+          "security": {
+            "noDangerouslySetInnerHtml": "off"
+          }
+        }
+      }
+    },
+    {
+      // Test files: relaxed rules for test-specific patterns
+      "includes": ["tests/**", "tests-examples/**"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedPrivateClassMembers": "off"
+          },
+          "performance": {
+            "useTopLevelRegex": "off"
+          },
+          "suspicious": {
+            "noSkippedTests": "off",
+            "noExplicitAny": "off"
+          }
+        }
+      }
+    }
+  ]
+}

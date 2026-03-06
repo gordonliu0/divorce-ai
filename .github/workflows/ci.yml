@@ -1,0 +1,67 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+jobs:
+  schema-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check schema version
+        env:
+          GH_TOKEN: ${{ secrets.SUPABASE_SCHEMA_TOKEN }}
+        run: |
+          BRANCH="${GITHUB_HEAD_REF:-${GITHUB_REF_NAME}}"
+          AUTH_HEADER="Authorization: token ${GH_TOKEN}"
+          EXPECTED=$(curl -sf -H "$AUTH_HEADER" "https://raw.githubusercontent.com/SpeedyGhostAI/ghost-supabase/${BRANCH}/SCHEMA_VERSION" 2>/dev/null || true)
+          if [ -z "$EXPECTED" ]; then
+            EXPECTED=$(curl -sf -H "$AUTH_HEADER" "https://raw.githubusercontent.com/SpeedyGhostAI/ghost-supabase/main/SCHEMA_VERSION")
+            echo "Checked against ghost-supabase/main (branch '${BRANCH}' not found)"
+          else
+            echo "Checked against ghost-supabase/${BRANCH}"
+          fi
+          EXPECTED=$(echo "$EXPECTED" | tr -d '[:space:]')
+          ACTUAL=$(cat .schema-version | tr -d '[:space:]')
+          if [ "$EXPECTED" != "$ACTUAL" ]; then
+            echo "::error::Schema version mismatch. Expected $EXPECTED, got $ACTUAL. Run type generation and update .schema-version."
+            exit 1
+          fi
+          echo "Schema version OK: $ACTUAL"
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm lint
+
+  # playwright:
+  #   if: github.event_name == 'pull_request'
+  #   needs: quality
+  #   timeout-minutes: 60
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: pnpm/action-setup@v4
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: 22
+  #         cache: pnpm
+  #     - run: pnpm install --frozen-lockfile
+  #     - run: pnpm exec playwright install --with-deps
+  #     - run: pnpm exec playwright test
+  #     - uses: actions/upload-artifact@v4
+  #       if: ${{ !cancelled() }}
+  #       with:
+  #         name: playwright-report
+  #         path: playwright-report/
+  #         retention-days: 30
