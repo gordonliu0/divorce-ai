@@ -266,3 +266,8 @@ Tighten feedback loop with beta users. Prioritize from real usage: which reports
 - **Multi-attorney collaboration** — multiple lawyers per firm on the same case with scoped permissions and shared visibility
 - **Processing notifications** — notify attorneys on stage completion during document parsing and analysis
 - **Report redaction** — attorney can redact or highlight specific sections before generating PDF export
+- **Document checklist** — auto-generated checklist of required document types per case, checked off as uploads match, showing gaps at a glance
+- **Timeline coverage map** — visual timeline per account showing which months are covered vs missing across the required 3-year period
+- **Client document request generator** — one-click templated email requesting missing document types, pre-filled from checklist gaps
+- **Bulk extraction dashboard** — batch upload and extract 30+ documents with progress tracking and results as they complete
+- **NWS digital form** — structured digital input form matching the standard NWS format so assertion data is typed before reconciliation
