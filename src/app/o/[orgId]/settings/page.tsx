@@ -1,8 +1,8 @@
 // app/o/[orgId]/settings/general/page.tsx
 
 import { redirect } from "next/navigation";
-import { createClient } from "@/shared/lib/supabase/server";
 import { GeneralSettingsClient } from "@/features/settings/components/sections/GeneralSettingsClient";
+import { createClient } from "@/shared/lib/supabase/server";
 
 export default async function GeneralSettingsPage({
   params,

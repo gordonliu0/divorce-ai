@@ -57,13 +57,11 @@ export async function POST(request: Request) {
 
   // Create membership
   console.log("Creating organization membership");
-  const { error: memberError } = await supabase
-    .from("members")
-    .insert({
-      user_id: user.id,
-      organization_id: invitation.organization_id,
-      role: invitation.role,
-    });
+  const { error: memberError } = await supabase.from("members").insert({
+    user_id: user.id,
+    organization_id: invitation.organization_id,
+    role: invitation.role,
+  });
 
   if (memberError) {
     console.log("Failed to create membership:", memberError);

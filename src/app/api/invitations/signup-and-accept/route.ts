@@ -162,13 +162,11 @@ export async function POST(request: Request) {
     }
 
     // Step 4: Create organization membership
-    const { error: memberError } = await supabase
-      .from("members")
-      .insert({
-        user_id: userData.user.id,
-        organization_id: invitation.organization_id,
-        role: invitation.role,
-      });
+    const { error: memberError } = await supabase.from("members").insert({
+      user_id: userData.user.id,
+      organization_id: invitation.organization_id,
+      role: invitation.role,
+    });
 
     if (memberError) {
       console.error("Error creating membership:", memberError);

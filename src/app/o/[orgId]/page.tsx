@@ -7,8 +7,8 @@ export default async function DashboardPage({ params }: PageProps) {
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center p-6">
-      <h1 className="text-lg font-medium">Dashboard</h1>
-      <p className="mt-2 text-sm text-muted-foreground">
+      <h1 className="font-medium text-lg">Dashboard</h1>
+      <p className="mt-2 text-muted-foreground text-sm">
         Organization: {orgId}
       </p>
     </div>

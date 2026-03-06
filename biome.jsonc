@@ -15,51 +15,18 @@
   },
   "overrides": [
     {
-      // shadcn UI components: idiomatic patterns from shadcn codegen
+      // shadcn UI primitives: vendored codegen, do not lint or format
       "includes": ["src/shared/components/ui/**"],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "useFocusableInteractive": "off",
-            "useSemanticElements": "off"
-          },
-          "correctness": {
-            "useExhaustiveDependencies": "off"
-          },
-          "performance": {
-            "noNamespaceImport": "off"
-          },
-          "security": {
-            "noDangerouslySetInnerHtml": "off"
-          },
-          "style": {
-            "noNestedTernary": "off"
-          },
-          "suspicious": {
-            "noArrayIndexKey": "off",
-            "noDocumentCookie": "off"
-          }
-        }
-      }
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false },
+      "assist": { "enabled": false }
     },
     {
-      // shadcn template/demo sidebar components
-      "includes": [
-        "src/shared/components/sidebar/**",
-        "src/shared/components/settings/**",
-        "src/features/sidebar/components/nav-workspaces.tsx",
-        "src/features/sidebar/components/nav-actions.tsx"
-      ],
-      "linter": {
-        "rules": {
-          "a11y": {
-            "useValidAnchor": "off"
-          },
-          "suspicious": {
-            "noArrayIndexKey": "off"
-          }
-        }
-      }
+      // shadcn block demos: vendored templates, do not lint or format
+      "includes": ["src/shared/components/blocks/**"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false },
+      "assist": { "enabled": false }
     },
     {
       // Meta Pixel: third-party tracking snippet requires dangerouslySetInnerHTML and plain img

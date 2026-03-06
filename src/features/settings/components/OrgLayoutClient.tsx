@@ -18,8 +18,8 @@ interface OrgLayoutClientProps {
 export function OrgLayoutClient({
   orgId,
   orgName,
-  token,
-  userId,
+  token: _token,
+  userId: _userId,
   userEmail,
   children,
 }: OrgLayoutClientProps) {

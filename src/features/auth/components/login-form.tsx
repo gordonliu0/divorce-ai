@@ -41,7 +41,7 @@ export function LoginForm({
   return (
     <div className={cn("flex flex-col", className)} {...props}>
       <h1
-        className="text-2xl font-medium tracking-tight"
+        className="font-medium text-2xl tracking-tight"
         style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
       >
         Welcome back to DivorceAI
@@ -50,36 +50,36 @@ export function LoginForm({
         Sign in to your account
       </p>
 
-      <form onSubmit={handleLogin} className="mt-8">
+      <form className="mt-8" onSubmit={handleLogin}>
         <div className="flex flex-col gap-5">
           <div className="grid gap-1.5">
             <label
+              className="font-medium text-sm"
               htmlFor="email"
-              className="text-sm font-medium"
               style={{ color: "hsl(0 0% 25%)" }}
             >
               Email
             </label>
             <input
+              className="h-10 w-full rounded-lg border px-3 text-sm outline-none transition-colors focus:ring-2"
               id="email"
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
-              type="email"
-              value={email}
-              className="h-10 w-full rounded-lg border px-3 text-sm outline-none transition-colors focus:ring-2"
               style={{
                 borderColor: "hsl(0 0% 82%)",
                 backgroundColor: "hsl(0 0% 100%)",
                 color: "hsl(0 0% 12%)",
               }}
+              type="email"
+              value={email}
             />
           </div>
           <div className="grid gap-1.5">
             <div className="flex items-center justify-between">
               <label
+                className="font-medium text-sm"
                 htmlFor="password"
-                className="text-sm font-medium"
                 style={{ color: "hsl(0 0% 25%)" }}
               >
                 Password
@@ -93,17 +93,17 @@ export function LoginForm({
               </Link>
             </div>
             <input
+              className="h-10 w-full rounded-lg border px-3 text-sm outline-none transition-colors focus:ring-2"
               id="password"
               onChange={(e) => setPassword(e.target.value)}
               required
-              type="password"
-              value={password}
-              className="h-10 w-full rounded-lg border px-3 text-sm outline-none transition-colors focus:ring-2"
               style={{
                 borderColor: "hsl(0 0% 82%)",
                 backgroundColor: "hsl(0 0% 100%)",
                 color: "hsl(0 0% 12%)",
               }}
+              type="password"
+              value={password}
             />
           </div>
           {error && (
@@ -112,18 +112,21 @@ export function LoginForm({
             </p>
           )}
           <button
-            className="mt-1 h-10 w-full rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+            className="mt-1 h-10 w-full rounded-lg font-medium text-sm transition-colors disabled:opacity-50"
             disabled={isLoading}
-            type="submit"
             style={{
               backgroundColor: "hsl(0 0% 12%)",
               color: "hsl(0 0% 96.5%)",
             }}
+            type="submit"
           >
             {isLoading ? "Signing in..." : "Sign in"}
           </button>
         </div>
-        <p className="mt-6 text-center text-sm" style={{ color: "hsl(0 0% 45%)" }}>
+        <p
+          className="mt-6 text-center text-sm"
+          style={{ color: "hsl(0 0% 45%)" }}
+        >
           Don&apos;t have an account?{" "}
           <Link
             className="font-medium underline underline-offset-4"

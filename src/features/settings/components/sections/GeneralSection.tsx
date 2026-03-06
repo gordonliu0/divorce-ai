@@ -29,7 +29,6 @@ interface GeneralSectionProps {
 }
 
 export function GeneralSection({ orgId, userRole }: GeneralSectionProps) {
-
   const [orgName, setOrgName] = useState("");
   const [originalName, setOriginalName] = useState("");
   const [teamSize, setTeamSize] = useState("");

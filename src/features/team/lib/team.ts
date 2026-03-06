@@ -10,12 +10,11 @@ interface TeamMemberRaw {
   user_id: string;
 }
 
-type InvitationRaw =
-  Database["public"]["Tables"]["invitations"]["Row"] & {
-    invited_by: {
-      name: string | null;
-    } | null;
-  };
+type InvitationRaw = Database["public"]["Tables"]["invitations"]["Row"] & {
+  invited_by: {
+    name: string | null;
+  } | null;
+};
 
 export function transformMember(raw: TeamMemberRaw): TeamMember {
   return {

@@ -1,6 +1,6 @@
+import { verifySettingsAccessNoRedirect } from "@/features/settings/lib/verify-settings-access-noredirect";
 import { Button } from "@/shared/components/ui/button";
 import { Card } from "@/shared/components/ui/card";
-import { verifySettingsAccessNoRedirect } from "@/features/settings/lib/verify-settings-access-noredirect";
 
 export default async function Billing({
   params,

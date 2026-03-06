@@ -36,7 +36,7 @@ export function UpdatePasswordForm({
   return (
     <div className={cn("flex flex-col", className)} {...props}>
       <h1
-        className="text-2xl font-medium tracking-tight"
+        className="font-medium text-2xl tracking-tight"
         style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
       >
         Set a new password
@@ -45,28 +45,28 @@ export function UpdatePasswordForm({
         Enter your new password below
       </p>
 
-      <form onSubmit={handleUpdatePassword} className="mt-8">
+      <form className="mt-8" onSubmit={handleUpdatePassword}>
         <div className="flex flex-col gap-5">
           <div className="grid gap-1.5">
             <label
+              className="font-medium text-sm"
               htmlFor="password"
-              className="text-sm font-medium"
               style={{ color: "hsl(0 0% 25%)" }}
             >
               New password
             </label>
             <input
+              className="h-10 w-full rounded-lg border px-3 text-sm outline-none transition-colors focus:ring-2"
               id="password"
               onChange={(e) => setPassword(e.target.value)}
               required
-              type="password"
-              value={password}
-              className="h-10 w-full rounded-lg border px-3 text-sm outline-none transition-colors focus:ring-2"
               style={{
                 borderColor: "hsl(0 0% 82%)",
                 backgroundColor: "hsl(0 0% 100%)",
                 color: "hsl(0 0% 12%)",
               }}
+              type="password"
+              value={password}
             />
           </div>
           {error && (
@@ -75,13 +75,13 @@ export function UpdatePasswordForm({
             </p>
           )}
           <button
-            className="mt-1 h-10 w-full rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+            className="mt-1 h-10 w-full rounded-lg font-medium text-sm transition-colors disabled:opacity-50"
             disabled={isLoading}
-            type="submit"
             style={{
               backgroundColor: "hsl(0 0% 12%)",
               color: "hsl(0 0% 96.5%)",
             }}
+            type="submit"
           >
             {isLoading ? "Saving..." : "Save new password"}
           </button>

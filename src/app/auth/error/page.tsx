@@ -8,7 +8,7 @@ export default async function Page({
   return (
     <div className="w-full max-w-sm">
       <h1
-        className="text-2xl font-medium tracking-tight"
+        className="font-medium text-2xl tracking-tight"
         style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
       >
         Something went wrong

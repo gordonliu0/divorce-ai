@@ -47,7 +47,7 @@ export async function updateSession(request: NextRequest) {
     "/pricing",
   ];
 
-  const isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
+  const _isPublicPath = publicPaths.some((path) => pathname.startsWith(path));
   const isProtectedPath = pathname.startsWith("/o");
 
   // Redirect unauthenticated users trying to access protected routes

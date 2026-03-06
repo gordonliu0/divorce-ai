@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Check,
-  ChevronDown,
-  Mail,
-  Plus,
-  Settings,
-  X,
-} from "lucide-react";
+import { Check, ChevronDown, Mail, Plus, Settings, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";

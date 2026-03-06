@@ -12,8 +12,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Divorce AI",
-  description:
-    "A project for Matt and Evan Weiss.",
+  description: "A project for Matt and Evan Weiss.",
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
@@ -40,17 +39,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.className} ${playfair.variable} antialiased`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            disableTransitionOnChange
-            forcedTheme="dark"
-          >
-            {children}
-            <Analytics />
-            <Toaster position="bottom-right" richColors={true} />
-          </ThemeProvider>
+      <body
+        className={`${geistSans.className} ${playfair.variable} antialiased`}
+      >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+          forcedTheme="dark"
+        >
+          {children}
+          <Analytics />
+          <Toaster position="bottom-right" richColors={true} />
+        </ThemeProvider>
       </body>
     </html>
   );
