@@ -12,7 +12,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 import {
@@ -260,7 +259,7 @@ export function TeamSwitcher({
                 {userEmail}
               </p>
             </div>
-            {orgs.map((org, index) => (
+            {orgs.map((org) => (
               <DropdownMenuItem
                 className="gap-2 px-3 py-1.5"
                 key={org.id}
@@ -272,9 +271,6 @@ export function TeamSwitcher({
                 <span className="flex-1 truncate text-sm">{org.name}</span>
                 {org.id === orgId && (
                   <Check className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
-                )}
-                {index < 9 && (
-                  <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
                 )}
               </DropdownMenuItem>
             ))}

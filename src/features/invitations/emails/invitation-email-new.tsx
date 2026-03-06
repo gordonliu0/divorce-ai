@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/shared/lib/url";
+
 interface InvitationEmailNewProps {
   customMessage?: string;
   invitationUrl: string;
@@ -91,7 +93,7 @@ export function InvitationEmailNew({
 
         <p style={{ fontSize: "14px", color: "#6b7280" }}>
           Questions? Reply to this email or visit our{" "}
-          <a href={`${process.env.NEXT_PUBLIC_APP_URL}/help`}>help center</a>.
+          <a href={`${getBaseUrl()}/help`}>help center</a>.
         </p>
       </div>
     </div>

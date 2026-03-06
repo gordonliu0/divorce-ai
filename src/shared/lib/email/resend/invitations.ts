@@ -2,6 +2,7 @@
 import { Resend } from "resend";
 import { InvitationEmailExisting } from "@/features/invitations/emails/invitation-email-existing";
 import { InvitationEmailNew } from "@/features/invitations/emails/invitation-email-new";
+import { getBaseUrl } from "@/shared/lib/url";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);
@@ -24,7 +25,7 @@ export async function sendInvitationEmail({
   customMessage,
   isExistingUser,
 }: SendInvitationEmailParams) {
-  const invitationUrl = `${process.env.NEXT_PUBLIC_APP_URL}/invite/${token}`;
+  const invitationUrl = `${getBaseUrl()}/invite/${token}`;
 
   const subject = isExistingUser
     ? `You've been invited to join ${organizationName} on SpeedyGhost`

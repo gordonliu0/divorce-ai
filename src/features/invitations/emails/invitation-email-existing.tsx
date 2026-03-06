@@ -1,3 +1,5 @@
+import { getBaseUrl } from "@/shared/lib/url";
+
 interface InvitationEmailExistingProps {
   customMessage?: string;
   invitationUrl: string;
@@ -74,9 +76,7 @@ export function InvitationEmailExisting({
 
         <p style={{ fontSize: "14px", color: "#6b7280" }}>
           Already have pending invitations?{" "}
-          <a href={`${process.env.NEXT_PUBLIC_APP_URL}/dashboard`}>
-            View all invitations
-          </a>
+          <a href={`${getBaseUrl()}/dashboard`}>View all invitations</a>
         </p>
       </div>
     </div>
